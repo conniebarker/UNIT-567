@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class dialtrigger : MonoBehaviour
+{
+    public Dialogue dialogue;
+    public GameObject player;
+    public Button DialogueButton;
+
+    public void TriggerDialogue()
+    {
+        FindObjectOfType<dialoguemanager>().StartDialogue(dialogue);
+        DialogueButton.gameObject.SetActive(false);
+    }
+
+}
