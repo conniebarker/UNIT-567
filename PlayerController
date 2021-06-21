@@ -1,0 +1,99 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class control2 : MonoBehaviour
+{
+    public float speed = 5f;
+    private bool OnGround = true;
+    public Rigidbody2D rb;
+    public Animator animator;
+    private SpriteRenderer sprite;
+    public AudioClip footstep;
+    private AudioClip jump;
+    Vector3 localScale;
+   
+   
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        localScale = transform.localScale;
+        animator = GetComponent<Animator>();
+        jump = GetComponent<AudioClip>();
+        footstep = GetComponent<AudioClip>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        transform.Translate(Vector2.right * Time.deltaTime * speed * moveHorizontal);
+       
+
+        if (Input.GetKeyDown(KeyCode.W) && OnGround == true)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 7f);
+            OnGround = false;
+            animator.SetBool("IsJumping", true);
+        }
+
+        animator.SetFloat("speed", Mathf.Abs(moveHorizontal));
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            sprite.flipX = true;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            sprite.flipX = false;
+        }
+
+        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical"))
+            GetComponent<AudioSource>().Play();
+        else if (!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
+            GetComponent<AudioSource>().Pause();
+
+
+        
+
+        if (OnGround == true)
+        {
+
+            animator.SetBool("IsJumping", false);
+            
+        }
+
+        if (OnGround == false)
+        {
+
+            GetComponent<AudioSource>().Pause();
+            
+        }
+    }
+
+   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        OnGround = true;
+
+    }
+
+   
+
+     
+    
+
+   
+
+
+	
+
+
+
+
+}
