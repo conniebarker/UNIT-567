@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class dialoguemanager : MonoBehaviour
+{
+
+    public Animator anim;
+    public Button DialogueButton;
+    
+
+   
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+    }
+    public void StartDialogue(Dialogue dialogue)
+    {
+
+        anim.SetBool("IsOpen", true);
+       
+    }
+   
+    public void EndDialogue()
+    {
+        anim.SetBool("IsOpen", false);
+    }
+}
